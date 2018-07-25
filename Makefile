@@ -24,6 +24,10 @@ setup-ansible:
 	@echo "Setup configurations using ansible"
 	@ansible-playbook -i ${ANSIBLE_PROJECT_SETUP_DIR}/development/hosts ${ANSIBLE_PROJECT_SETUP_DIR}/development/site.yml $(ANSIBLE_ARGS)
 
+submodule-update:
+	@echo "Initialize submodules"
+	@git submodule init; git submodule sync; git submodule update;
+
 flake8-check:
 	@echo "Flake8 check"
 	@flake8 --config .flake8 .

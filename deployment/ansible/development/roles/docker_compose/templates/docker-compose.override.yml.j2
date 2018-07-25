@@ -65,8 +65,6 @@ services:
       - ./logs:/var/log/
       - ../.pycharm_helpers:/root/.pycharm_helpers
     ports:
-      # for django test server
-      - "{{ docker_port_forward.django.http }}:8080"
       # for ssh
       - "{{ docker_port_forward.django.ssh }}:22"
       # for karma tests
@@ -79,3 +77,6 @@ services:
       - ./static:/home/web/static:ro
       - ./media:/home/web/media:ro
       - ./logs:/var/log/nginx
+    ports:
+      # for test server
+      - "{{ docker_port_forward.web.http }}:80"

@@ -46,6 +46,11 @@ LOGGING = {
         'django.db.backends': {
             'handlers': ['console'],
             'level': 'INFO',  # switch to DEBUG to show actual SQL
+        },
+        'geonode': {
+            'handlers': ['console'],
+            'level': 'INFO',  # switch to DEBUG to show GeoNode logs
+            'propagate': False
         }
     },
     # root logger

@@ -37,14 +37,14 @@ services:
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
 
   data-dir-conf:
-    image: geosolutionsit/geoserver_data:2.13.x
+    image: geosolutionsit/geoserver_data:2.12.x
     restart: on-failure
     command: /bin/true
     volumes:
       - geoserver-data-dir:/geoserver_data/data
 
   geoserver:
-    image: geosolutionsit/geoserver-docker:2.13.x
+    image: geosolutionsit/geoserver-docker:2.12.x
     restart: unless-stopped
     depends_on:
       - db
@@ -81,6 +81,7 @@ services:
       - db:db
       - elasticsearch:elasticsearch
       - geoserver:geoserver
+      - rabbitmq:rabbitmq
     volumes:
       - geoserver-data-dir:/usr/src/geonode/geoserver/data/data
     restart: unless-stopped
@@ -109,14 +110,10 @@ services:
     image: nginx
     hostname: nginx
     links:
-      - uwsgi:uwsgi"
+      - uwsgi:django
     restart: unless-stopped
 
   rabbitmq:
     image: library/rabbitmq:3.6
     hostname: rabbitmq
-    environment:
-      - RABBIT_PASSWORD=rabbit_test_password
-      - USER=rabbit_user
-      - RABBITMQ_NODENAME=rabbit
     restart: unless-stopped
